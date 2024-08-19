@@ -1,0 +1,613 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="normalize.css/normalize.css" />
+    <link rel="stylesheet" href="css/main.css">
+  </head>
+  <body>
+    <header id="header">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <img src="assets/shopping.png" style="width: 50px" alt="" />
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <span class="nav-link active" aria-current="page" style="cursor: pointer;" id="home-btn"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <span class="nav-link active" aria-current="page"  id="customer-btn" style="cursor: pointer;"
+                  >Customer</span
+                >
+              </li>
+              <li class="nav-item">
+                <span class="nav-link active" aria-current="page"  id="item-btn" style="cursor: pointer;">Item</span>
+              </li>
+              <li class="nav-item">
+                <span class="nav-link active" aria-current="page"  id="order-btn" style="cursor: pointer;"
+                  >Order</span
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section id="customer-form" class="container mt-5">
+        <div>
+          <div class="searchBarParent">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search Customer"
+                aria-label="Recipient's username"
+                aria-describedby="button-addon2"
+              />
+              <button class="btn btn-outline-secondary searchBtn" type="button">
+                Search
+              </button>
+            </div>
+          </div>
+
+          <div id="btn" class="relativePosition">
+            <div class="absolutePosition">
+              <button
+                id="saveBtn"
+                class="noBorder btn btn-outline-secondary newButton whiteTextColor"
+                data-bs-toggle="modal"
+                data-bs-target="#save-customer-modal"
+                type="button"
+              >
+                Save
+              </button>
+              <button
+                id="updateBtn"
+                class="noBorder btn-warning btn btn-outline-secondary updateButton whiteTextColor"
+                data-bs-toggle="modal"
+                data-bs-target="#update-customer-modal"
+                type="button"
+              >
+                Update
+              </button>
+              <button
+                id="deleteBtn"
+                class="noBorder btn-danger btn btn-outline-secondary removeButton whiteTextColor"
+                data-bs-toggle="modal"
+                data-bs-target="#delete-customer-modal"
+                type="button"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div class="row margin col-sm-4 col-xs">
+            <h4 class="viewCustomerTitle">View Customers</h4>
+          </div>
+        </div>
+
+        <div class="tableDiv customerTable" id="customer-table">
+          <table class="table">
+            <thead class="tableHead">
+              <tr class="table-info">
+                <th class="OrderTableHead" scope="col">Customer_Id</th>
+                <th class="OrderTableHead" scope="col">Customer_Name</th>
+                <th class="OrderTableHead" scope="col">Telephone</th>
+                <th class="OrderTableHead" scope="col">City</th>
+              </tr>
+            </thead>
+            <tbody id="customer-table-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!--save Customers modal-->
+<div class="modal" tabindex="-1" id="save-customer-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Customers</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="customer_id" class="form-label ">Customer Id</label>
+                <input type="text" id="customer_id" class="form-control" placeholder="C00-001"
+                       aria-label="Customer_Id">
+                <span id="error-id" class="alert"></span><br>
+
+                <label for="customer_name" class="form-label ">Customer Name</label>
+                <input type="text" id="customer_name" class="form-control"
+                       aria-label="customer_Name">
+                <span id="error-name" class="alert"></span><br>
+
+                <label for="city" class="form-label ">City</label>
+                <input type="text" id="city" class="form-control" aria-label="city">
+                <span id="error-city" class="alert"></span><br>
+
+                <label for="telephone" class="form-label ">Telephone</label>
+                <input type="text" id="telephone" class="form-control"
+                       aria-label="telephone">
+                <span id="error-telephone" class="alert"></span><br>
+
+            </div>
+            <div class="modal-footer">save-close-btn
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="">Close
+                </button>
+                <button type="button" class="btn btn-primary" id="customer-save">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--update Customers modal-->
+<div class="modal" tabindex="-1" id="update-customer-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Customers</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="c_id" class="form-label ">Customer Id</label>
+                <input type="text" id="c_id" class="form-control" placeholder="enter id" aria-label="Customer_Id">
+                <span id="error-c-idU" class="alert"></span><br>
+
+                <label for="c_name" class="form-label ">Customer Name</label>
+                <input type="text" id="c_name" class="form-control" placeholder="enter name" aria-label="customer_Name">
+                <span id="error-c-nameU" class="alert"></span><br>
+
+                <label for="c_city" class="form-label ">City</label>
+                <input type="text" id="c_city" class="form-control" placeholder="enter your city" aria-label="city">
+                <span id="error-c-cityU" class="alert"></span><br>
+
+                <label for="c_telephone" class="form-label ">Telephone</label>
+                <input type="text" id="c_telephone" class="form-control" placeholder="enter your number"
+                       aria-label="telephone">
+                <span id="error-c-telU" class="alert"></span><br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="update-close">Close</button>
+                <button type="button" class="btn btn-primary" id="customer-update">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--delete Customers modal-->
+<div class="modal" tabindex="-1 " id="delete-customer-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Customers</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="delete-id" class="form-label ">Customer Id</label>
+                <input type="text" id="delete-id" class="form-control" placeholder="enter id" aria-label="Customer_Id">
+
+                <label for="delete-name" class="form-label ">Customer Name</label>
+                <input type="text" id="delete-name" class="form-control" placeholder="enter name"
+                       aria-label="customer_Name">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary " data-bs-dismiss="modal" id="delete-close">Close</button>
+                <button type="button" class="btn btn-primary" id="delete-customer">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <section id="item-form" class="container mt-5">
+        <div>
+          <div class="container-fluid searchBarParent">
+            <div id="searchBar" class="input-group mb-3">
+              <input
+                id="searchInputField"
+                type="text"
+                class="form-control"
+                placeholder="Search Items"
+                aria-label="Recipient's username"
+                aria-describedby="button-addon2"
+              />
+              <button
+                class="btn btn-outline-secondary searchBtn"
+                type="button"
+                id="button-addon2"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+
+          <div id="crudButton" class="relativePosition">
+            <div class="absolutePosition">
+              <button
+                id="btnSave"
+                class="noBorder btn btn-outline-secondary newButton whiteTextColor"
+                data-bs-toggle="modal"
+                data-bs-target="#save-items-modal"
+                type="button"
+              >
+                Save
+              </button>
+              <button
+                id="btnUpdate"
+                class="noBorder btn-warning btn btn-outline-secondary updateButton whiteTextColor"
+                data-bs-toggle="modal"
+                data-bs-target="#update-items-modal"
+                type="button"
+              >
+                Update
+              </button>
+              <button
+                id="btnDelete"
+                class="noBorder btn-danger btn btn-outline-secondary removeButton whiteTextColor"
+                data-bs-toggle="modal"
+                data-bs-target="#delete-items-modal"
+                type="button"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4">
+          <div id="d1" class="row margin col-sm-4 col-xs">
+            <h6 class="viewCustomerTitle">View Items</h6>
+          </div>
+        </div>
+
+        <div class="itemTable" id="item-table">
+          <table class="table">
+            <thead>
+              <tr class="table-info">
+                <th class="OrderTableHead" scope="col">Item_Id</th>
+                <th class="OrderTableHead" scope="col">Item_name</th>
+                <th class="OrderTableHead" scope="col">Quantity</th>
+                <th class="OrderTableHead" scope="col">Unit_Price</th>
+              </tr>
+            </thead>
+            <tbody id="item-table-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!--save Items modal-->
+<div class="modal" tabindex="-1" id="save-items-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Items</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="item-save-form">
+                <label for="item_id" class="form-label ">Item Id</label>
+                <input type="text" id="item_id" class="form-control bd-colour" placeholder="I00-000"
+                       aria-label="item_id">
+                <span id="i-id-error" class="alert"></span><br>
+
+                <label for="item_name" class="form-label ">Item Name</label>
+                <input type="text" id="item_name" class="form-control bd-colour"
+                       aria-label="item_name">
+                <span id="i-name-error" class="alert"></span><br>
+
+                <label for="quantity" class="form-label ">Quanity</label>
+                <input type="text" id="quantity" class="form-control bd-colour"
+                       aria-label="quantity">
+                <span id="i-quantity-error" class="alert"></span><br>
+
+                <label for="price" class="form-label ">Price</label>
+                <input type="text" id="price" class="form-control bd-colour"
+                       aria-label="price">
+                <span id="i-price-error" class="alert"></span><br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" 
+                
+                
+                >Close</button>
+                <button type="button" class="btn btn-primary" id="item-save">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--update Items modal-->
+<div class="modal" tabindex="-1" id="update-items-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Update Items</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="i_id" class="form-label ">Item Id</label>
+                <input type="text" id="i_id" class="form-control" placeholder="enter id" aria-label="item_Id">
+                <span id="error-idU" class="alert"></span><br>
+
+                <label for="i_name" class="form-label ">Item Name</label>
+                <input type="text" id="i_name" class="form-control" placeholder="enter name" aria-label="item_name">
+                <span id="error-nameU" class="alert"></span><br>
+
+                <label for="i_quantity" class="form-label ">Quantity</label>
+                <input type="text" id="i_quantity" class="form-control" placeholder="enter quantity"
+                       aria-label="quantity">
+                <span id="error-quantityU" class="alert"></span><br>
+
+                <label for="i_price" class="form-label ">Price</label>
+                <input type="text" id="i_price" class="form-control" placeholder="enter price"
+                       aria-label="price">
+                <span id="error-priceU" class="alert"></span><br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="update-item">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--delete Items modal-->
+<div class="modal" tabindex="-1" id="delete-items-modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Delete Items</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <label for="d-id" class="form-label ">Item Id</label>
+                <input type="text" id="d-id" class="form-control" placeholder="enter id" aria-label="item_id">
+
+                <label for="d-name" class="form-label ">Item Name</label>
+                <input type="text" id="d-name" class="form-control" placeholder="enter name" aria-label="item_name">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="delete-item">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+      <section id="order-form" class="container pb-5 mt-4">
+        <div class="row">
+          <!-- Place Order Form -->
+          <div class="col-lg-8 mb-3">
+            <div class="card shadow-sm mb-4">
+              <div class="card-body">
+                <h2 class="card-title">Place Order</h2>
+                <div class="row g-3">
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label for="OrderID" class="form-label">Order Id</label>
+                      <input type="text" id="OrderID" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label for="date" class="form-label">Date</label>
+                      <input type="date" id="date" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label for="customer-idO" class="form-label"
+                        >Customer ID</label
+                      >
+                      <!--                                <input type="text" id="customer-idO" class="form-control">-->
+                      <select id="customer-idO" class="form-select"></select>
+                    </div>
+                  </div>
+                </div>
+                <div class="row g-3 mt-3">
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label for="customer-nameO" class="form-label"
+                        >Customer Name</label
+                      >
+                      <input
+                        type="text"
+                        id="customer-nameO"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label for="city-name" class="form-label">City</label>
+                      <input type="text" id="city-name" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label for="mobile" class="form-label">Telephone</label>
+                      <input type="text" id="mobile" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Place Item Order Form -->
+            <div class="card shadow-sm mb-4">
+              <div class="card-body">
+                <h2 class="card-title">Item Section</h2>
+                <div class="row g-3">
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label for="item-code" class="form-label"
+                        >Item Code</label
+                      >
+                      <!--                                <input type="text" id="item-code" class="form-control">-->
+                      <select id="item-code" class="form-select"></select>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label for="item-name" class="form-label"
+                        >Item Name</label
+                      >
+                      <input type="text" id="item-name" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label for="item-qty-on-hand" class="form-label"
+                        >QTY On Hand</label
+                      >
+                      <input
+                        type="text"
+                        id="item-qty-on-hand"
+                        class="form-control"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="row g-3 mt-3">
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label for="order-qty" class="form-label"
+                        >Order QTY</label
+                      >
+                      <input type="text" id="order-qty" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label for="t-price" class="form-label">Price</label>
+                      <input type="text" id="t-price" class="form-control" />
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="form-group">
+                      <label for="t-discount" class="form-label"
+                        >Discount Rate</label
+                      >
+                      <input type="text" id="t-discount" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                  <button class="btn btn-primary" id="add-to-cart">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Cart Table -->
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h2 class="card-title">Cart</h2>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Item Code</th>
+                        <th>Item Name</th>
+                        <th>Qty</th>
+                        <th>Discount</th>
+                        <th>Total</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="addToCart"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Invoice Section -->
+          <div class="col-lg-4">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <h2 class="card-title">Invoice</h2>
+                <div class="form-group mb-3">
+                  <label for="cash" class="form-label">Cash</label>
+                  <input type="text" id="cash" class="form-control" />
+                </div>
+                <div class="form-group mb-3">
+                  <label for="discount" class="form-label">Discount</label>
+                  <input type="text" id="discount" class="form-control" />
+                </div>
+                <div class="form-group mb-3">
+                  <label for="balance" class="form-label">Balance</label>
+                  <input
+                    type="text"
+                    id="balance"
+                    class="form-control"
+                    readonly
+                  />
+                </div>
+                <!--                    <div class="form-group mb-3">-->
+                <!--                        <label>Total</label>-->
+                <!--                        <p id="total" class="form-control-plaintext">$0.00</p>-->
+                <!--                    </div>-->
+                <div class="form-group mb-3">
+                  <label>Discount</label>
+                  <p id="total-discount" class="form-control-plaintext">
+                    $0.00
+                  </p>
+                </div>
+                <div class="form-group mb-3">
+                  <label>Net Total</label>
+                  <p id="net-total" class="form-control-plaintext">$0.00</p>
+                </div>
+                <div class="d-flex justify-content-end mt-3">
+                  <button
+                    class="btn btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#purchaseModal"
+                    id="purchase"
+                  >
+                    Purchase
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+  <script src="lib/jquery-3.7.1.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"
+  ></script>
+  <script src="js/main.js" type="module"></script>
+  <script src="js/customer_form/customer.js" type="module"></script>
+  <script src="js/item_form/item.js" type="module"></script>
+  <script src="js/order_form/order.js" type="module"></script>
+</html>
